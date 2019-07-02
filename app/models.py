@@ -1,10 +1,15 @@
 from app import db, login
+
 from werkzeug.security import generate_password_hash as gen_pswrd, \
 check_password_hash as check_pswrd # for generating and checking users passwords during verification
+
 from flask_login import UserMixin # tracks users current login status
+
 from datetime import datetime
+
 now = datetime.utcnow # is needed for further representation 
 				   #without microseconds in timestampField
+
 from hashlib import md5 # for generating and obtaining user avatar
 
 
