@@ -7,6 +7,7 @@ import logging							#Both are needed for applying email of admins who receives
 from logging.handlers import SMTPHandler #emails with errors log
 from logging.handlers import RotatingFileHandler #Logging to a file
 import os
+from flask_mail import Mail #plug in email sending support to users
 
 
 app = Flask(__name__)
@@ -15,6 +16,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login =LoginManager(app)
 login.login_view = 'login'
+mail = Mail(app)
 
 
 from app import routes, models, errors

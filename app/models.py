@@ -1,4 +1,4 @@
-from app import db, login
+from app import db, login, app
 
 from werkzeug.security import generate_password_hash as gen_pswrd, \
 check_password_hash as check_pswrd # for generating and checking users passwords during verification
@@ -11,6 +11,8 @@ now = datetime.utcnow # is needed for further representation
 				   #without microseconds in timestampField
 
 from hashlib import md5 # for generating and obtaining user avatar
+from time import time
+import jwt
 
 
 followers = db.Table('followers',#association table for many-to-many relationship in "User" table
@@ -69,6 +71,20 @@ class User(UserMixin, db.Model):
 				followers.c.follower_id == self.id)
 		own = Post.query.filter_by(user_id =self.id)
 		return followed.union(own).order_by(Post.timestamp.desc())
+
+	def get_reset_password_token(self, expires_in=600):
+		return jwt.encode(
+			{'reset_password': self.id, 'exp': time() + expires_in},
+			app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+
+	@staticmethod
+	def verify_reset_password_token(token):
+		try:
+			id = jwt.decode(token, app.config['SECRET_KEY'],
+							algorithm=['HS256'])['reset_password']
+		except:
+			return None
+		return User.query.get(id)
 
 class Post(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
