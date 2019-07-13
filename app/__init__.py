@@ -8,7 +8,8 @@ from logging.handlers import SMTPHandler #emails with errors log
 from logging.handlers import RotatingFileHandler #Logging to a file
 import os
 from flask_mail import Mail #plug in email sending support to users
-
+from flask_bootstrap import Bootstrap #implements styles for pages
+from flask_moment import Moment #unifying timestamps throughout timezones
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -17,8 +18,8 @@ migrate = Migrate(app, db)
 login =LoginManager(app)
 login.login_view = 'login'
 mail = Mail(app)
-
-
+bootstrap = Bootstrap(app)
+moment = Moment(app)
 from app import routes, models, errors
 
 if not app.debug and app.config['MAIL_SERVER']:

@@ -7,8 +7,7 @@ from flask_login import UserMixin # tracks users current login status
 
 from datetime import datetime
 
-now = datetime.utcnow # is needed for further representation 
-				   #without microseconds in timestampField
+
 
 from hashlib import md5 # for generating and obtaining user avatar
 from time import time
@@ -89,7 +88,7 @@ class User(UserMixin, db.Model):
 class Post(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	body = db.Column(db.String(140))
-	timestamp = db.Column(db.DateTime, index=True, default=now().replace(microsecond=0))
+	timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 	def __repr__(self):
