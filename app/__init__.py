@@ -1,4 +1,4 @@
-from flask import Flask 
+from flask import Flask, request 
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, MigrateCommand # tracks DB modifications
@@ -10,6 +10,8 @@ import os
 from flask_mail import Mail #plug in email sending support to users
 from flask_bootstrap import Bootstrap #implements styles for pages
 from flask_moment import Moment #unifying timestamps throughout timezones
+from flask_babel import Babel #Language support
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -20,7 +22,8 @@ login.login_view = 'login'
 mail = Mail(app)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
-from app import routes, models, errors
+babel = Babel(app)
+
 
 if not app.debug and app.config['MAIL_SERVER']:
 	auth = None
@@ -49,3 +52,9 @@ if not app.debug and app.config['MAIL_SERVER']:
 	app.logger.setLevel(logging.INFO)
 	app.logger.info('Microblog startup')
 	
+@babel.localeselector
+def get_locale():
+	return request.accept_languages.best_match(app.config['LANGUAGES'])
+	#return 'fr'
+
+from app import routes, models, errors
