@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-07-17 18:09+0300\n"
+"POT-Creation-Date: 2019-07-20 21:44+0300\n"
 "PO-Revision-Date: 2019-07-17 09:50+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -82,10 +82,26 @@ msgstr "Demander la réinitialisation du mot de passe"
 msgid "Repeat Password"
 msgstr "Répéter le mot de passe"
 
+#: app/translate.py:9
+msgid "Error: the translation service is not configured."
+msgstr "Erreur: le service de traduction n'est pas configuré."
+
+#: app/translate.py:15
+msgid "Error: the translation service failed."
+msgstr "Erreur: le service de traduction a échoué."
+
 #: app/templates/_post.html:11
 #, python-format
 msgid "%(username)s said %(when)s"
 msgstr "%(username)s m'a dit %(when)s"
+
+#: app/templates/_post.html:20
+msgid "Translate"
+msgstr "Traduire"
+
+#: app/templates/base.html:6
+msgid "Welcome to Microblog!"
+msgstr "Bienvenue sur Microblog!"
 
 #: app/templates/base.html:25
 msgid "Home"
@@ -106,6 +122,10 @@ msgstr "Profil"
 #: app/templates/base.html:33
 msgid "Logout"
 msgstr "Connectez - Out"
+
+#: app/templates/base.html:68
+msgid "Error: Could not contact server."
+msgstr "Erreur: Impossible de contacter le serveur."
 
 #: app/templates/index.html:5
 #, python-format
