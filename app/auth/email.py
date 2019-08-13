@@ -4,7 +4,12 @@ from flask_babel import _
 
 
 def send_password_reset_email(user):
+	'''
+		Generates the password reset emails
+	'''
 	token = user.get_reset_password_token()
+
+	#general function for sending emails
 	send_email(_('[Microblog] Reset Your Password'),
 				sender=current_app.config['ADMINS'][0],
 				recipients=[user.email],
